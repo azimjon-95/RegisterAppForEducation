@@ -6,19 +6,42 @@ import Logo from './assets/logo.png'
 import unn from './assets/draft_responses_onboarding.png'
 import { AiOutlineCloseCircle, AiOutlineCheckCircle } from "react-icons/ai";
 
-const initialState = {
-  fullname: "",
-  number: "",
-  text: "",
-  email: "",
-};
 const App = () => {
-  const [time, setTime] = useState()
-  const [cloud, setCloud] = useState(false
-  )
-  const [formData, setFormData] = useState(initialState);
+  const [cloud, setCloud] = useState(false)
+  const [formData, setFormData] = useState({
+    fullname: "",
+    number: "+998",
+    text: "",
+    email: "",
+    time: ""
+  });
 
+  // const sendMsgToBot = async () => {
+  //   let myText = `<b>O'quvchi ro'yxatdan o'tdi</b>%0A%0A`;
+  //   myText += `Ismi: <h3>${formData.fullname}</h3>%0A`;
+  //   myText += `Tel: <b>${formData.tel}</b>%0A`;
+  //   myText += `Email: <b>${formData.email}</b>%0A`;
+  //   myText += `time: <b>${formData.time}</b>%0A`;
 
+  //   let tokenBot = "6230509348:AAHqIOcv8e6rUeikjKdc27-H1rMw1oLux0k";
+  //   let chatId = "39464759";
+
+  //   let tempUrl = `https://api.telegram.org/bot${tokenBot}/sendMessage?chat_id=${chatId}&text=${myText}&parse_mode=html`;
+
+  //   let api = new XMLHttpRequest();
+  //   api.open("GET", tempUrl, true);
+  //   api.send();
+  // };
+
+  const Clear = () => {
+    // fullname = "",
+    //   number = "",
+    //   text = "",
+    //   email = "",
+    //   time = ""
+  }
+
+  console.log(formData);
 
   return (
     <div className='Container'>
@@ -120,11 +143,17 @@ const App = () => {
       <div className="box none">
         <p>Qaysi vaqtda tashrif buyurmoqchisiz? <p className='red'>*</p> </p>
         <ul className='time'>
-          <li><input type="radio" name='r' value="09:30" onChange={(e) => setTime(e.target.value)} /></li>
+          <li><input
+            onChange={(e) =>
+              setFormData({ ...formData, time: e.target.value })
+            } type="radio" name='r' value="09:30" /></li>
           <li>09:30</li>
         </ul>
         <ul className='time'>
-          <li><input type="radio" name='r' value="14:30" onChange={(e) => setTime(e.target.value)} /></li>
+          <li><input
+            onChange={(e) =>
+              setFormData({ ...formData, time: e.target.value })
+            } type="radio" name='r' value="14:30" /></li>
           <li>14:30</li>
         </ul>
 
@@ -148,11 +177,11 @@ const App = () => {
             required
             minLength={4}
             style={{
-              borderBottom: formData.number.length >= 4 && "2px solid green",
+              borderBottom: formData.number.length >= 13 && "2px solid green",
             }}
           />
 
-          {formData.number.length >= 4 ? (
+          {formData.number.length >= 13 ? (
             <AiOutlineCheckCircle style={{ color: "green" }} />
           ) : (
             // <AiOutlineCloseCircle style={{ color: "red" }} />
@@ -163,10 +192,6 @@ const App = () => {
         </div>
 
       </div>
-
-
-
-
       <div className="box none">
         <p>Savol va takliflar uchun </p>
         <div
@@ -197,8 +222,9 @@ const App = () => {
       </div>
 
       <div className="submit">
+        {/* onClick={() => sendMsgToBot()}  */}
         <button className='Otp'>Отправить</button>
-        <button className='Ochi'>Очистить форму</button>
+        <button onClick={() => Clear()} className='Ochi'>Очистить форму</button>
       </div>
 
       <div className="logo">
