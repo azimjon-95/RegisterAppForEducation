@@ -23,7 +23,7 @@ const App = () => {
     myText += `Email: <b>${formData.email}</b>%0A`;
     myText += `time: <b>${formData.time}</b>%0A`;
 
-    let aaa = `👤<b> O'quvchi ro'yxatdan o'tdi</b>%0A%0A <b>Ismi</b>: ${formData.fullname}%0A%0A ☎️ Tel: ${formData.number}%0A ✉️ Email: ${formData.email}%0A 📝 Savol va takliflar: ${formData.text}`
+    let aaa = `👤<b> O'quvchi ro'yxatdan o'tdi</b>%0A%0A <b>Ismi</b>: ${formData.fullname}%0A%0A ☎️ Tel: ${formData.number}%0A ✉️ Email: ${formData.email}%0A  Savol va takliflar: ${formData.text}`
     console.log(aaa);
     let tokenBot = "6189129353:AAGm-0xifsZE4DGO8XETTxnMP7rvZNWzWHo";
     let chatId = "1986279045";
@@ -35,13 +35,14 @@ const App = () => {
   };
 
   const Clear = () => {
+
   }
   // console.log(myText);
 
 
 
   return (
-    <div className='Container'>
+    <form className='Container'>
       <div className="box">
         <div className="box_text">
           <h1 className='title'>
@@ -137,7 +138,7 @@ const App = () => {
 
         </div>
       </div>
-      <div className="box none">
+      {/* <div className="box none">
         <p>Qaysi vaqtda tashrif buyurmoqchisiz? <p className='red'>*</p> </p>
         <ul className='time'>
           <li><input
@@ -154,7 +155,7 @@ const App = () => {
           <li>14:30</li>
         </ul>
 
-      </div>
+      </div> */}
       <div className="box none"
       >
         <p>Telefon raqamingiz <p className='red'>*</p> </p>
@@ -221,7 +222,8 @@ const App = () => {
       <div className="submit">
         {/*  */}
         <button onClick={() => sendMsgToBot()} className='Otp'>Отправить</button>
-        <button onClick={() => Clear()} className='Ochi'>Очистить форму</button>
+        {/* <button onClick={() => Clear()} className='Ochi'>Очистить форму</button> */}
+        <input type="reset" value='Reset' />
       </div>
 
       <div className="logo">
@@ -240,7 +242,7 @@ const App = () => {
       </div>
       {cloud ? <div onClick={() => setCloud(false)} className="displayNone"></div> : ''}
 
-    </div>
+    </form>
 
   )
 }
