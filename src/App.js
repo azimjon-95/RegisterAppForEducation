@@ -222,8 +222,8 @@ const App = () => {
       <div className="submit">
         {/*  */}
         <button onClick={() => sendMsgToBot()} className='Otp'>Отправить</button>
-        {/* <button onClick={() => Clear()} className='Ochi'>Очистить форму</button> */}
-        <input type="reset" value='Reset' />
+        <button onClick={() => Clear()} className='Ochi'>Очистить форму</button>
+        {/* <input type="reset" value='Reset' /> */}
       </div>
 
       <div className="logo">
