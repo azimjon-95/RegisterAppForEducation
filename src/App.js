@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import './App.css'
 import { BiMessageX } from 'react-icons/bi'
 import { BsCloudCheck } from 'react-icons/bs'
@@ -15,6 +15,8 @@ const App = () => {
     email: "",
     time: ""
   });
+
+  const ref = useRef(null)
 
   const sendMsgToBot = async () => {
     let myText = `<b>O'quvchi ro'yxatdan o'tdi</b>%0A%0A`;
@@ -34,12 +36,11 @@ const App = () => {
     api.send();
   };
 
+  // const onInput = (e) => setFormData(e.target.value)
+
   const Clear = () => {
-
+    ref.current.value = ""
   }
-  // console.log(myText);
-
-
 
   return (
     <form className='Container'>
@@ -202,6 +203,7 @@ const App = () => {
             onChange={(e) =>
               setFormData({ ...formData, text: e.target.value })
             }
+            ref={ref}
             className='rewiew'
             placeholder='Мой ответ'
             required
