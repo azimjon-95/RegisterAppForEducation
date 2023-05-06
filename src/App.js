@@ -16,32 +16,29 @@ const App = () => {
     time: ""
   });
 
-  // const sendMsgToBot = async () => {
-  //   let myText = `<b>O'quvchi ro'yxatdan o'tdi</b>%0A%0A`;
-  //   myText += `Ismi: <h3>${formData.fullname}</h3>%0A`;
-  //   myText += `Tel: <b>${formData.tel}</b>%0A`;
-  //   myText += `Email: <b>${formData.email}</b>%0A`;
-  //   myText += `time: <b>${formData.time}</b>%0A`;
+  const sendMsgToBot = async () => {
+    let myText = `<b>O'quvchi ro'yxatdan o'tdi</b>%0A%0A`;
+    myText += `Ismi: <h3>${formData.fullname}</h3>%0A`;
+    myText += `Tel: <b>${formData.number}</b>%0A`;
+    myText += `Email: <b>${formData.email}</b>%0A`;
+    myText += `time: <b>${formData.time}</b>%0A`;
 
-  //   let tokenBot = "6230509348:AAHqIOcv8e6rUeikjKdc27-H1rMw1oLux0k";
-  //   let chatId = "39464759";
+    let aaa = `👤<b> O'quvchi ro'yxatdan o'tdi</b>%0A%0A <b>Ismi</b>: ${formData.fullname}%0A%0A ☎️ Tel: ${formData.number}%0A ✉️ Email: ${formData.email}%0A 📝 Savol va takliflar: ${formData.text}`
+    console.log(aaa);
+    let tokenBot = "6189129353:AAGm-0xifsZE4DGO8XETTxnMP7rvZNWzWHo";
+    let chatId = "1986279045";
 
-  //   let tempUrl = `https://api.telegram.org/bot${tokenBot}/sendMessage?chat_id=${chatId}&text=${myText}&parse_mode=html`;
-
-  //   let api = new XMLHttpRequest();
-  //   api.open("GET", tempUrl, true);
-  //   api.send();
-  // };
+    let tempUrl = `https://api.telegram.org/bot${tokenBot}/sendMessage?chat_id=${chatId}&text=${aaa}&parse_mode=html`;
+    let api = new XMLHttpRequest();
+    api.open("GET", tempUrl, true);
+    api.send();
+  };
 
   const Clear = () => {
-    // fullname = "",
-    //   number = "",
-    //   text = "",
-    //   email = "",
-    //   time = ""
   }
+  // console.log(myText);
 
-  console.log(formData);
+
 
   return (
     <div className='Container'>
@@ -222,8 +219,8 @@ const App = () => {
       </div>
 
       <div className="submit">
-        {/* onClick={() => sendMsgToBot()}  */}
-        <button className='Otp'>Отправить</button>
+        {/*  */}
+        <button onClick={() => sendMsgToBot()} className='Otp'>Отправить</button>
         <button onClick={() => Clear()} className='Ochi'>Очистить форму</button>
       </div>
 
