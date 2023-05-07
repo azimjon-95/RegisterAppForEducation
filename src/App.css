@@ -114,7 +114,7 @@
   border-bottom: 1px solid rgb(147, 147, 147);
   margin-top: 20px;
   outline: none;
-  font-size: 17px;
+  font-size: 16px;
 }
 
 .borderNone {
@@ -124,12 +124,17 @@
   border-bottom: 1px solid rgb(147, 147, 147);
 
   outline: none;
-  font-size: 17px;
+  font-size: 16px;
 }
 
 .red {
   color: red;
   margin-left: 5px;
+}
+
+.inputShow {
+  border-bottom: 2px solid rgb(255, 0, 0);
+
 }
 
 .time {
@@ -383,6 +388,10 @@
   }
 
   .name {
+    font-size: 15px;
+  }
+
+  .borderNone {
     font-size: 15px;
   }
 }

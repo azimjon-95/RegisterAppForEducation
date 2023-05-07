@@ -4,10 +4,12 @@ import { BiMessageX } from 'react-icons/bi'
 import { BsCloudCheck } from 'react-icons/bs'
 import Logo from './assets/logo.png'
 import unn from './assets/draft_responses_onboarding.png'
-import { AiOutlineCloseCircle, AiOutlineCheckCircle } from "react-icons/ai";
+import { AiOutlineLoading3Quarters, AiOutlineCheckCircle } from "react-icons/ai";
 
 const App = () => {
   const [cloud, setCloud] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
   const [formData, setFormData] = useState({
     fullname: "",
     number: "+998",
@@ -16,34 +18,43 @@ const App = () => {
     time: ""
   });
 
-  const ref = useRef(null)
 
-  const sendMsgToBot = async () => {
+
+  const sendMsgToBot = async (e) => {
+    // e.preventDefault();
+    // setLoading(true)
+    // if (formData.fullname.length == 0) {
+    //   setError(true)
+    // }
+
     let myText = `<b>O'quvchi ro'yxatdan o'tdi</b>%0A%0A`;
     myText += `Ismi: <h3>${formData.fullname}</h3>%0A`;
     myText += `Tel: <b>${formData.number}</b>%0A`;
     myText += `Email: <b>${formData.email}</b>%0A`;
     myText += `time: <b>${formData.time}</b>%0A`;
 
-    let aaa = `👤<b> O'quvchi ro'yxatdan o'tdi</b>%0A%0A <b>Ismi</b>: ${formData.fullname}%0A%0A ☎️ Tel: ${formData.number}%0A ✉️ Email: ${formData.email}%0A  Savol va takliflar: ${formData.text}`
-    console.log(aaa);
-    let tokenBot = "6189129353:AAGm-0xifsZE4DGO8XETTxnMP7rvZNWzWHo";
-    let chatId = "1986279045";
+    let aaa = `👤<b> O'quvchi ro'yxatdan o'tdi</b>%0A%0A <b>Ismi</b>: ${formData.fullname}%0A%0A ☎️ Tel: ${formData.number}%0A ✉️ Email: ${formData.email}%0A 📝 Savol va takliflar: ${formData.text}`
+
+    // let tokenBot = "6076160647:AAFaHQc9pUjLl013dxuYdNdFdqsdmGrecVk"; // Azimjon
+    // let chatId = "39464759"; // Azimjon
+
+    let tokenBot = "6189129353:AAGm-0xifsZE4DGO8XETTxnMP7rvZNWzWHo";  // Diyorbek
+    let chatId = "1986279045"; // Diyorbek
 
     let tempUrl = `https://api.telegram.org/bot${tokenBot}/sendMessage?chat_id=${chatId}&text=${aaa}&parse_mode=html`;
     let api = new XMLHttpRequest();
     api.open("GET", tempUrl, true);
     api.send();
+    setLoading(false)
   };
 
-  // const onInput = (e) => setFormData(e.target.value)
-
   const Clear = () => {
-    ref.current.value = ""
+    window.location.reload(false)
   }
 
+
   return (
-    <form className='Container'>
+    <form className='Container' >
       <div className="box">
         <div className="box_text">
           <h1 className='title'>
@@ -81,6 +92,7 @@ const App = () => {
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
               }
+
               className='borderNone'
               placeholder='@gmail.com'
               required
@@ -120,7 +132,8 @@ const App = () => {
             onChange={(e) =>
               setFormData({ ...formData, fullname: e.target.value })
             }
-            className='name'
+
+            className={`name ${error ? 'inputShow ' : ""}`}
             placeholder='Мой ответ'
             required
             minLength={4}
@@ -171,6 +184,7 @@ const App = () => {
             onChange={(e) =>
               setFormData({ ...formData, number: e.target.value })
             }
+
             className='name'
             placeholder='Мой ответ'
             required
@@ -192,7 +206,7 @@ const App = () => {
 
       </div>
       <div className="box none">
-        <p>Savol va takliflar uchun </p>
+        <p>Savol va takliflar uchun <p className='red'>*</p></p>
         <div
           className="form_item"
 
@@ -203,7 +217,7 @@ const App = () => {
             onChange={(e) =>
               setFormData({ ...formData, text: e.target.value })
             }
-            ref={ref}
+
             className='rewiew'
             placeholder='Мой ответ'
             required
@@ -223,7 +237,10 @@ const App = () => {
 
       <div className="submit">
         {/*  */}
-        <button onClick={() => sendMsgToBot()} className='Otp'>Отправить</button>
+        {/* <button onClick={() => sendMsgToBot()} className='Otp'>Отправить</button> */}
+        <button onClick={() => sendMsgToBot()} className='Otp'>{
+          loading ? <AiOutlineLoading3Quarters /> : "Отправить"
+        }</button>
         <button onClick={() => Clear()} className='Ochi'>Очистить форму</button>
         {/* <input type="reset" value='Reset' /> */}
       </div>
