@@ -2,18 +2,19 @@ import React, { useState, useRef } from 'react'
 import './App.css'
 import { BiMessageX } from 'react-icons/bi'
 import { BsCloudCheck } from 'react-icons/bs'
-import Logo from './assets/logo.png'
-import unn from './assets/draft_responses_onboarding.png'
-import { AiOutlineLoading3Quarters, AiOutlineCheckCircle } from "react-icons/ai";
+import Logo from './assets/mentorSchoolLogo.jpg'
+import unn from './assets/recep.jpg'
+import { AiOutlineCheckCircle } from "react-icons/ai";
+import { FaTelegramPlane } from "react-icons/fa";
 
 const App = () => {
-  const [cloud, setCloud] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
+  const [result, setResult] = useState(false)
   const [formData, setFormData] = useState({
     fullname: "",
     number: "+998",
     text: "",
+    sinif: "",
     email: "",
     time: ""
   });
@@ -21,31 +22,40 @@ const App = () => {
 
 
   const sendMsgToBot = async (e) => {
-    // e.preventDefault();
-    // setLoading(true)
-    // if (formData.fullname.length == 0) {
-    //   setError(true)
-    // }
-
     let myText = `<b>O'quvchi ro'yxatdan o'tdi</b>%0A%0A`;
     myText += `Ismi: <h3>${formData.fullname}</h3>%0A`;
     myText += `Tel: <b>${formData.number}</b>%0A`;
-    myText += `Email: <b>${formData.email}</b>%0A`;
-    myText += `time: <b>${formData.time}</b>%0A`;
+    myText += `Sinifi: <b>${formData.sinif}</b>%0A`;
+    myText += `ko'rs: <b>${formData.text}</b>%0A`;
 
-    let aaa = `👤<b> O'quvchi ro'yxatdan o'tdi</b>%0A%0A <b>Ismi</b>: ${formData.fullname}%0A%0A ☎️ Tel: ${formData.number}%0A ✉️ Email: ${formData.email}%0A 📝 Savol va takliflar: ${formData.text}`
+    let aaa = `👤<b> O'quvchi ro'yxatdan o'tdi</b>%0A%0A <b>Ismi</b>: ${formData.fullname}%0A%0A ☎️ Tel: ${formData.number}%0A 🔢 Sinifi: ${formData.sinif}%0A 📌 Ko'rsi: ${formData.text}%0A`
 
-    // let tokenBot = "6076160647:AAFaHQc9pUjLl013dxuYdNdFdqsdmGrecVk"; // Azimjon
-    // let chatId = "39464759"; // Azimjon
+    let tokenBot = "6230509348:AAHqIOcv8e6rUeikjKdc27-H1rMw1oLux0k"; // Azimjon
+    let chatId = "39464759"; // Azimjon
 
-    let tokenBot = "6189129353:AAGm-0xifsZE4DGO8XETTxnMP7rvZNWzWHo";  // Diyorbek
-    let chatId = "1986279045"; // Diyorbek
+    // let tokenBot = "6189129353:AAGm-0xifsZE4DGO8XETTxnMP7rvZNWzWHo";  // Diyorbek
+    // let chatId = "1986279045"; // Diyorbek
 
     let tempUrl = `https://api.telegram.org/bot${tokenBot}/sendMessage?chat_id=${chatId}&text=${aaa}&parse_mode=html`;
     let api = new XMLHttpRequest();
     api.open("GET", tempUrl, true);
     api.send();
-    setLoading(false)
+
+    setTimeout(() => {
+      setResult(true)
+    }, 3500)
+    setTimeout(() => {
+      setResult(false)
+    }, 11000)
+
+    setFormData({
+      fullname: "",
+      number: "+998",
+      text: "",
+      sinif: "",
+      email: "",
+      tim: ""
+    });
   };
 
   const Clear = () => {
@@ -55,71 +65,11 @@ const App = () => {
 
   return (
     <form className='Container' >
-      <div className="box">
-        <div className="box_text">
-          <h1 className='title'>
-            Algoritm Ta'lim markazi ustozlari tomonidan katta ochiq dars!</h1>
-          <p className='info_text'>⚡️ Zamonaviy kasblardan birini «Algoritm Ta'lim»da o'rganish istagida bo'lgan yigit-qizlar uchun markaz ustozlari tomonidan katta ochiq darslar bo'lib o'tadi.
-            <br />
-            <br />
-            Ochiq darslarda:
-            <br />
-            <br />
 
-            • Marketing yo'nalishidan SMM Pro kursi ustozi — Jahongir Mamatqodirov;<br />
-            • Grafik dizayn kursi ustozi — Jahongir G'ulomov;<br />
-            • Dasturlash kursi ustozi — Alisher Kasimovlar tomonidan sohalar kimlar uchun va «Algoritm Ta'lim»dagi shu yo'nalishdagi kurslar bo'yicha batafsil ma'lumot olishingiz mumkin.<br /><br />
-
-            Shuningdek shu kuni, markaz rahbari Temurbek Adhamov tomonidan markazdagi qulayliklar, kelgusida o'quvchilar uchun taklif etilayotgan yangiliklar haqida bilib olsangiz bo'ladi.<br /><br />
-
-            📅 Qachon: 5-may, juma, soat 09:30 va 14:30<br />
-            🆓 Qatnashish: bepul<br />
-            🙌 Kim uchun: barcha uchun<br />
-            📍Qayerda: «Algoritm Ta'lim», 9.Navoiy; Namangan sh. Shirin dunyo yonida<br /><br />
-
-            O'zingiz uchun qulay bo'lgan vaqtlarning birida ochiq darslarga tashrif buyurishingiz mumkin. 😉
-          </p>
-        </div>
-
-        <div className="gmail_box">
-          <div
-            className="form_item"
-
-          >
-            <input
-              type="email"
-              value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
-
-              className='borderNone'
-              placeholder='@gmail.com'
-              required
-              minLength={4}
-              style={{
-                borderBottom: formData.email.length >= 4 && "2px solid green",
-              }}
-            />
-
-            {formData.email.length >= 4 ? (
-              <AiOutlineCheckCircle style={{ color: "green" }} />
-            ) : (
-              // <AiOutlineCloseCircle style={{ color: "red" }} />
-              ""
-            )}
-
-
-          </div>
-
-
-          <p><BiMessageX /> Совместный доступ отсутствует</p>
-          <button onClick={() => setCloud(true)} className='info'><BsCloudCheck /></button>
-        </div>
-
-        <p className='error'>*Обязательный вопрос</p>
-
+      <div className="imgBox">
+        <img src={Logo} alt="" />
       </div>
+
       <div className="box none">
         <p>Ism-familiyangiz <p className='red'>*</p> </p>
         <div
@@ -133,7 +83,7 @@ const App = () => {
               setFormData({ ...formData, fullname: e.target.value })
             }
 
-            className={`name ${error ? 'inputShow ' : ""}`}
+            className='name'
             placeholder='Мой ответ'
             required
             minLength={4}
@@ -151,27 +101,9 @@ const App = () => {
 
 
         </div>
-      </div>
-      {/* <div className="box none">
-        <p>Qaysi vaqtda tashrif buyurmoqchisiz? <p className='red'>*</p> </p>
-        <ul className='time'>
-          <li><input
-            onChange={(e) =>
-              setFormData({ ...formData, time: e.target.value })
-            } type="radio" name='r' value="09:30" /></li>
-          <li>09:30</li>
-        </ul>
-        <ul className='time'>
-          <li><input
-            onChange={(e) =>
-              setFormData({ ...formData, time: e.target.value })
-            } type="radio" name='r' value="14:30" /></li>
-          <li>14:30</li>
-        </ul>
 
-      </div> */}
-      <div className="box none"
-      >
+        <br />
+        <br />
         <p>Telefon raqamingiz <p className='red'>*</p> </p>
 
         <div
@@ -204,28 +136,61 @@ const App = () => {
 
         </div>
 
-      </div>
-      <div className="box none">
-        <p>Savol va takliflar uchun <p className='red'>*</p></p>
+        <br />
+        <br />
+
+        <p>Sinif <p className='red'>*</p> </p>
+
         <div
           className="form_item"
 
         >
           <input
             type="text"
-            value={formData.text}
+            value={formData.sinif}
             onChange={(e) =>
-              setFormData({ ...formData, text: e.target.value })
+              setFormData({ ...formData, sinif: e.target.value })
             }
 
-            className='rewiew'
+            className='name'
             placeholder='Мой ответ'
             required
-            minLength={5}
+            minLength={1}
             style={{
-              borderBottom: formData.text.length >= 3 && "2px solid green",
+              borderBottom: formData.sinif.length >= 1 && "2px solid green",
             }}
           />
+
+          {formData.sinif.length >= 1 ? (
+            <AiOutlineCheckCircle style={{ color: "green" }} />
+          ) : (
+            // <AiOutlineCloseCircle style={{ color: "red" }} />
+            ""
+          )}
+
+
+        </div>
+      </div>
+
+      <div className="box none">
+        <p>Ko'rsni tanlang <p className='red'>*</p></p>
+        <div
+          className="form_item"
+
+        >
+          <select onChange={(e) =>
+            setFormData({ ...formData, text: e.target.value })
+          }
+            style={{
+              borderBottom: formData.text.length >= 3 && "2px solid green",
+            }} className='rewiew'>
+            <option >Мой выбор</option>
+            <option value="Ingiliz tili">Ingiliz tili (IELTS)</option>
+            <option value="Rus tili">Rus tili</option>
+            <option value="Ona tili Adabiyon">Ona tili va Adabiyon</option>
+            <option value="Kimyo">Kimyo</option>
+            <option value="Biologiya">Biologiya</option>
+          </select>
           {formData.text.length >= 3 ? (
             <AiOutlineCheckCircle style={{ color: "green" }} />
           ) : (
@@ -236,30 +201,32 @@ const App = () => {
       </div>
 
       <div className="submit">
-        {/*  */}
-        {/* <button onClick={() => sendMsgToBot()} className='Otp'>Отправить</button> */}
-        <button onClick={() => sendMsgToBot()} className='Otp'>{
-          loading ? <AiOutlineLoading3Quarters /> : "Отправить"
-        }</button>
+        {/* ${leading} */}
+        {
+          loading ? <button className="TelegramPlane">Отправил <FaTelegramPlane /></button> : <button onClick={() => {
+            setLoading(true)
+            sendMsgToBot()
+
+          }} className="Otp">Отправить</button>
+        }
+
+
         <button onClick={() => Clear()} className='Ochi'>Очистить форму</button>
-        {/* <input type="reset" value='Reset' /> */}
       </div>
 
       <div className="logo">
-        <div className="image"><img src={Logo} alt="" /></div>
-        <h1>Algoritm Talim</h1>
+        <p>© Mentor school, 2023 All rights reserved.</p>
       </div>
 
 
 
-      <div className={`cloud ${cloud ? 'cloudShow' : ""}`}>
+      <div className={`cloud ${result ? 'cloudShow' : ""}`}>
+        {/* <div className={`cloud cloudShow`}> */}
         <img src={unn} alt="" />
-        <h2>Автосохранение данных</h2>
-        <p>Ваши ответы автоматически сохраняются на срок до 30 дней, и вы можете продолжить заполнять формы на других устройствах, где выполнен вход в тот же аккаунт.</p>
+        <p>Siz muvofaqiyatli roʻyhatdan oʻtdingiz. Tez orada operatorlarimiz siz bilan bogʻlanishadi😊</p>
 
-        <button onClick={() => setCloud(false)} className='back'>OK</button>
       </div>
-      {cloud ? <div onClick={() => setCloud(false)} className="displayNone"></div> : ''}
+      {result ? <div onClick={() => setResult(false)} className="displayNone"></div> : ''}
 
     </form>
 
